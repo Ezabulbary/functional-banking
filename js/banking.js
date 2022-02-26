@@ -1,7 +1,16 @@
+function getInputValue(inputId){
+    const inputField = document.getElementById(inputId);
+    const inputeAmountText = inputField.value;
+    const inputAmountValue = parseFloat(inputeAmountText);
+
+    inputField.value = '';
+
+    return inputAmountValue;
+};
+
+
 document.getElementById('deposit-button').addEventListener('click', function(){
-    const depositInput = document.getElementById('deposit-input');
-    const depositInputText = depositInput.value;
-    const depositAmount = parseFloat(depositInputText);
+    const depositAmount = getInputValue('deposit-input');
 
     const depositTotal = document.getElementById('deposit-total');
     const depositTotalText = depositTotal.innerText;
@@ -16,15 +25,11 @@ document.getElementById('deposit-button').addEventListener('click', function(){
 
     const totalBalance = previusBalanceTotal + depositAmount;
     balanceTotal.innerText = totalBalance;
-
-    depositInput.value = '';
 });
 
 
 document.getElementById('withdraw-button').addEventListener('click', function(){
-    const withdrawInput = document.getElementById('withdraw-input');
-    const withdrawInputText = withdrawInput.value;
-    const withdrawAmount = parseFloat(withdrawInputText);
+    const withdrawAmount = getInputValue('withdraw-input');
 
     const withdrawTotal = document.getElementById('withdraw-total');
     const withdrawTotalText = withdrawTotal.innerText;
@@ -39,6 +44,4 @@ document.getElementById('withdraw-button').addEventListener('click', function(){
 
     const totalBalance = previusBalanceTotal - withdrawAmount;
     balanceTotal.innerText = totalBalance;
-
-    withdrawInput.value = '';
-})
+});
