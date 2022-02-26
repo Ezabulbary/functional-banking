@@ -15,31 +15,29 @@ function updateTotalField(totalField, amoumt){
     const previusTotal = parseFloat(previusTotalText);
 
     totalElement.innerText = previusTotal + amoumt;
-}
+};
 
-document.getElementById('deposit-button').addEventListener('click', function(){
-    const depositAmount = getInputValue('deposit-input');
-
-    updateTotalField('deposit-total', depositAmount);
-
+function updateBalance(amount, isAdd){
     const balanceTotal = document.getElementById('blance-total');
     const balanceTotalText = balanceTotal.innerText;
     const previusBalanceTotal = parseFloat(balanceTotalText);
+    if(isAdd == true){
+        balanceTotal.innerText = previusBalanceTotal + amount;
+    }
+    else{
+        balanceTotal.innerText = previusBalanceTotal - amount;
+    }
+};
 
-    const totalBalance = previusBalanceTotal + depositAmount;
-    balanceTotal.innerText = totalBalance;
+document.getElementById('deposit-button').addEventListener('click', function(){
+    const depositAmount = getInputValue('deposit-input');
+    updateTotalField('deposit-total', depositAmount);
+    updateBalance(depositAmount, true);
 });
 
 
 document.getElementById('withdraw-button').addEventListener('click', function(){
     const withdrawAmount = getInputValue('withdraw-input');
-
     updateTotalField('withdraw-total', withdrawAmount);
-
-    const balanceTotal = document.getElementById('blance-total');
-    const balanceTotalText = balanceTotal.innerText;
-    const previusBalanceTotal = parseFloat(balanceTotalText);
-
-    const totalBalance = previusBalanceTotal - withdrawAmount;
-    balanceTotal.innerText = totalBalance;
+    updateBalance(withdrawAmount, false);
 });
