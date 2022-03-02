@@ -17,10 +17,18 @@ function updateTotalField(totalField, amoumt){
     totalElement.innerText = previusTotal + amoumt;
 };
 
-function updateBalance(amount, isAdd){
+function getCurrentBalance(){
     const balanceTotal = document.getElementById('blance-total');
     const balanceTotalText = balanceTotal.innerText;
     const previusBalanceTotal = parseFloat(balanceTotalText);
+    return previusBalanceTotal;
+}
+
+function updateBalance(amount, isAdd){
+    const balanceTotal = document.getElementById('blance-total');
+    /* const balanceTotalText = balanceTotal.innerText;
+    const previusBalanceTotal = parseFloat(balanceTotalText); */
+    const previusBalanceTotal = getCurrentBalance();
     if(isAdd == true){
         balanceTotal.innerText = previusBalanceTotal + amount;
     }
@@ -31,13 +39,18 @@ function updateBalance(amount, isAdd){
 
 document.getElementById('deposit-button').addEventListener('click', function(){
     const depositAmount = getInputValue('deposit-input');
-    updateTotalField('deposit-total', depositAmount);
-    updateBalance(depositAmount, true);
+    if(depositAmount > 0){
+        updateTotalField('deposit-total', depositAmount);
+        updateBalance(depositAmount, true);
+    }
 });
 
 
 document.getElementById('withdraw-button').addEventListener('click', function(){
     const withdrawAmount = getInputValue('withdraw-input');
-    updateTotalField('withdraw-total', withdrawAmount);
-    updateBalance(withdrawAmount, false);
+    const currentBalance = getCurrentBalance();
+    if(withdrawAmount > 0 && currentBalance > withdrawAmount){
+        updateTotalField('withdraw-total', withdrawAmount);
+        updateBalance(withdrawAmount, false);
+    }
 });
